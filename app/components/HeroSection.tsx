@@ -21,8 +21,8 @@ export default function HeroSection({ slides }: Props) {
   const activeSlide = slides[activeIndex];
 
   return (
-    <section id="top" className="relative overflow-hidden bg-white px-6 py-0 lg:px-10">
-      <div className="relative mx-auto h-[600px] w-full max-w-7xl rounded-3xl overflow-hidden">
+    <section id="top" className="relative overflow-hidden bg-white px-2 py-0 mt-1 sm:px-6 lg:px-8">
+      <div className="relative mx-auto sm:h-[600px] h-[450px] w-full  rounded-xl overflow-hidden">
         <Image
           src={activeSlide.image}
           alt={activeSlide.title}
@@ -30,7 +30,7 @@ export default function HeroSection({ slides }: Props) {
           height={1080}
           className="h-full w-full object-cover"
         />
-        
+
         {/* Overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
 
@@ -38,12 +38,11 @@ export default function HeroSection({ slides }: Props) {
         <div className="absolute inset-0 flex flex-col items-start justify-center px-6 py-12 lg:px-20">
           <div className="max-w-2xl space-y-6">
             {/* Badge */}
-            <span className={`inline-flex rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider ${
-              activeSlide.type === "deal" ? "bg-red-600 text-white" :
+            <span className={`inline-flex rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider ${activeSlide.type === "deal" ? "bg-red-600 text-white" :
               activeSlide.type === "news" ? "bg-blue-600 text-white" :
-              activeSlide.type === "article" ? "bg-purple-600 text-white" :
-              "bg-slate-600 text-white"
-            }`}>
+                activeSlide.type === "article" ? "bg-purple-600 text-white" :
+                  "bg-slate-600 text-white"
+              }`}>
               {activeSlide.badge || "Featured"}
             </span>
 
@@ -79,11 +78,10 @@ export default function HeroSection({ slides }: Props) {
           {slides.map((slide, index) => (
             <button
               key={slide.id}
-              className={`transition-all ${
-                index === activeIndex 
-                  ? "h-2 w-12 rounded-full bg-white" 
-                  : "h-2 w-2 rounded-full bg-white/40 hover:bg-white/60"
-              }`}
+              className={`transition-all ${index === activeIndex
+                ? "h-2 w-12 rounded-full bg-white"
+                : "h-2 w-2 rounded-full bg-white/40 hover:bg-white/60"
+                }`}
               onClick={() => setActiveIndex(index)}
               aria-label={`Slide ${index + 1}`}
             />

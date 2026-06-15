@@ -7,42 +7,42 @@ export default function FooterSection() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10">
         <div className="grid gap-8 sm:grid-cols-2 items-start">
           <div>
-            <p className="mb-2 text-xl sm:text-2xl font-semibold text-orange-600">Scent Steller</p>
+            <p className="mb-2 text-xl sm:text-2xl font-semibold text-slate-900">Scent Steller</p>
             <p className="mt-2 max-w-lg text-sm text-slate-600">Discover premium luxury perfumes crafted to leave a lasting impression. Our carefully selected fragrance collection combines elegance, quality, and long-lasting scents, making every moment feel special. Whether for daily wear or special occasions, find the perfect fragrance that reflects your style and personality.</p>
           </div>
 
           <div className="space-y-4">
-            <div className="flex w-full flex-col gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-4 sm:p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex w-full flex-col items-center justify-center gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-4 text-center sm:p-6 sm:flex-row sm:items-center sm:justify-between sm:text-left">
               {/* Left: Location - icon + text aligned */}
-              <div className="flex w-full items-start gap-3 sm:w-1/2">
-                <FaMapMarkerAlt size={18} className="mt-1 text-[#E53E3E] flex-shrink-0" />
+              <div className="flex w-full items-center justify-center gap-3 sm:w-1/2 sm:justify-start">
+                
                 <div>
-                  <p className="mb-1 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Location</p>
-                  <address className="not-italic text-sm text-slate-600">Robi Mall Baldia Town, Karachi, Pakistan</address>
+                  <p className="flex md:justify-start justify-center -space-y-2 gap-1 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500"><span><FaMapMarkerAlt size={15} className=" text-[#E53E3E]  flex-shrink-0" /></span> Location</p>
+                  <address className="not-italic text-sm text-slate-600">Shop# UG131, Rubi Cinema & Shopping Mall, Baldia Town Sector 5 Saeedabad, Karachi, 75760 Pakistan</address>
                 </div>
               </div>
 
               {/* Right: Follow icons and WhatsApp stacked on mobile, aligned to end on larger screens */}
-              <div className="flex w-full flex-col items-start gap-3 sm:items-end sm:w-1/2">
+              <div className="flex w-full h-full flex-col items-center gap-3 sm:items-end sm:w-1/2">
                 <div className="w-full">
-                  <p className="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Follow Us</p>
-                  <div className="flex items-center gap-4">
-                    <a href="#" aria-label="Instagram" className="text-[#E1306C] hover:text-[#C13584]">
+                  <p className="mb-2 text-sm font-semibold text-center uppercase tracking-[0.12em] text-slate-500">Follow Us</p>
+                  <div className="flex items-center justify-center gap-4">
+                    <a href="https://www.instagram.com/scent_stellar/" aria-label="Instagram" className="text-[#E1306C] hover:text-[#C13584]" target="_blank">
                       <FaInstagram size={20} />
                     </a>
-                    <a href="#" aria-label="Facebook" className="text-[#1877F2] hover:text-[#165fce]">
+                    <a href="https://www.facebook.com/Scentstellar/" aria-label="Facebook" className="text-[#1877F2] hover:text-[#165fce]" target="_blank">
                       <FaFacebookF size={20} />
                     </a>
-                    <a href="#" aria-label="TikTok" className="text-[#292929] hover:text-[#010101]">
+                    <a href="https://www.tiktok.com/@scent.stellar" aria-label="TikTok" className="text-[#292929] hover:text-[#010101]" target="_blank">
                       <SiTiktok size={20} />
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center w-full gap-2">
                   <FaWhatsapp size={18} className="text-[#25D366] flex-shrink-0" />
-                  <a href="https://wa.me/923001234567" className="break-words text-sm text-slate-700 hover:text-orange-600">
-                    +92 300 1234567
+                  <a href="https://wa.me/923231835011" className="break-words text-sm text-slate-700 hover:text-orange-600">
+                    +92 3231835011
                   </a>
                 </div>
               </div>

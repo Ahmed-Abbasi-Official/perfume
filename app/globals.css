@@ -41,19 +41,24 @@ img {
   display: none;
 }
 
-/* Custom scrollbar styling for theme */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+.thin-scrollbar {
+  -ms-overflow-style: auto;
+  scrollbar-width: thin;
 }
 
-::-webkit-scrollbar-track {
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
   background: #f1f5f9;
+  border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb {
+.thin-scrollbar::-webkit-scrollbar-thumb {
   background: #ea580c;
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -75,11 +80,27 @@ img {
   }
 }
 
+@keyframes topSellingScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-today-deals {
-  animation: todayDealsScroll 40s linear infinite;
+  animation: todayDealsScroll 10s linear infinite;
+}
+
+.animate-top-selling {
+  animation: topSellingScroll 35s linear infinite;
 }
 
 /* Pause the scrolling animation when the user hovers the container */
-.group:hover .animate-today-deals {
+.deals-container:hover .animate-today-deals,
+.top-selling-container:hover .animate-top-selling,
+.reviews-container:hover .animate-today-deals,
+.reviews-container:focus-within .animate-today-deals {
   animation-play-state: paused;
 }

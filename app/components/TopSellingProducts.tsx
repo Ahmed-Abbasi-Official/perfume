@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Product } from "../../data/content";
 
 type Props = {
@@ -7,39 +8,41 @@ type Props = {
 
 export default function TopSellingProducts({ products }: Props) {
   return (
-    <section id="top-selling" className="bg-slate-100 px-6 py-12 lg:px-10">
+    <section id="top-selling" className="bg-white px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
-          <p className="text-sm uppercase tracking-[0.24em] text-orange-600">Top Selling Products</p>
-          <h2 className="text-3xl font-semibold ">Best-selling perfumes customers love</h2>
+          <p className="text-sm font-bold uppercase tracking-[0.24em] text-orange-600">Top Selling Products</p>
+          <h2 className="sm:text-3xl text-2xl font-bold">Signature Favorites</h2>
         </div>
-
-        <div className="overflow-x-auto hide-scrollbar">
-          <div className="flex gap-6 min-w-max animate-today-deals">
-            {[...products, ...products].map((product, idx) => (
-              <article key={`${product.id}-${idx}`} className="min-w-[260px] rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                <div className="overflow-hidden rounded-3xl">
-                  <Image src={product.image} alt={product.title} width={720} height={480} className="h-56 w-full object-cover" />
+        {/* Horizontal scroll container */}
+        <div className="thin-scrollbar flex flex-nowrap gap-4 overflow-x-auto pb-3 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          {products.map((product) => (
+            <Link key={product.id} href={`/product/${product.id}`} className="group block flex-none w-[48vw] sm:w-[240px] md:w-[265px] lg:w-[295px]">
+              <article className="h-full rounded-lg border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col overflow-hidden justify-between">
+                <div className="relative overflow-hidden w-full aspect-[4/5] bg-slate-50 shrink-0">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                <div className="mt-5 space-y-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-base font-semibold text-slate-950">{product.title}</p>
-                    <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                      {product.discount}
-                    </span>
+                <div className="p-3 flex flex-col gap-1 sm:p-4 sm:gap-2">
+                  <h3 className="text-sm font-semibold text-slate-950 group-hover:text-orange-600 transition-colors line-clamp-1 sm:text-base">
+                    {product.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-1 sm:text-sm">{product.subtitle}</p>
+                  {product.volume && <p className="text-xs text-amber-700 font-medium">{product.volume}</p>}
+                  <div className="flex flex-wrap items-center gap-1 sm:gap-3 mt-1">
+                    <span className="text-base font-semibold text-slate-950 sm:text-lg">{product.price}</span>
+                    {product.oldPrice && (
+                      <small className="text-xs font-normal text-slate-400 line-through sm:text-sm">{product.oldPrice}</small>
+                    )}
                   </div>
-                  <p className="text-sm text-slate-500">{product.subtitle}</p>
-                  <div className="flex items-center gap-2 text-lg font-semibold text-slate-950">
-                    <span>{product.price}</span>
-                    {product.oldPrice ? <small className="text-sm font-normal text-slate-400 line-through">{product.oldPrice}</small> : null}
-                  </div>
-                  <button className="mt-4 w-full rounded-full bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
-                    Add to Cart
-                  </button>
                 </div>
               </article>
-            ))}
-          </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

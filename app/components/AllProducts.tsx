@@ -1,128 +1,75 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Product } from "../../data/content";
+
 
 type Props = {
   products: Product[];
 };
 
 export default function AllProducts({ products }: Props) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedVolume, setSelectedVolume] = useState<string>("30 ml");
-  const [sortBy, setSortBy] = useState<"default" | "low-to-high" | "high-to-low">("default");
-
-  const uniqueVolumes = useMemo(() => {
-    return Array.from(new Set(products.map((p) => p.volume).filter(Boolean))).sort();
-  }, [products]);
-
-  const filteredProducts = useMemo(() => {
-    let filtered = products
-      .filter((p) => !selectedCategory || p.category === selectedCategory)
-      .sort((a, b) => {
-        if (sortBy === "low-to-high") {
-          return (a.priceValue || 0) - (b.priceValue || 0);
-        } else if (sortBy === "high-to-low") {
-          return (b.priceValue || 0) - (a.priceValue || 0);
-        }
-        return 0;
-      });
-
-    // Smart volume filtering: show selected volume first, then continue with others
-    const selectedVolumeProducts = filtered.filter((p) => p.volume === selectedVolume);
-    const otherVolumeProducts = filtered.filter((p) => p.volume !== selectedVolume);
-    
-    return [...selectedVolumeProducts, ...otherVolumeProducts];
-  }, [products, selectedCategory, selectedVolume, sortBy]);
+  // Show only first 4 products on the Home page preview
+  const previewProducts = products.slice(0, 4);
 
   return (
-    <section id="all-products" className="bg-white px-6 py-12 lg:px-10">
+    <section id="all-products" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8">
-          <p className="text-sm uppercase tracking-[0.24em] text-orange-600">All Products</p>
-          <h2 className="text-3xl font-semibold text-slate-950">Browse our full selection</h2>
+        <div className="md:mb-10 mb-4 flex flex-col  justify-between items-start gap-1  ">
+          <div className="flex w-full justify-between">
+            <p className="text-sm font-bold uppercase tracking-[0.24em] text-orange-600">All Products</p>
+
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2   text-md font-bold text-slate-700 transition hover:border-slate-900 hover:text-slate-950 active:scale-95 underline"
+            >
+              View All
+              <svg
+                className="h-4 w-4 text-slate-600"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+          <h2 className="md:text-3xl text-2xl font-bold text-slate-950 mt-1">Explore Our Collection</h2>
         </div>
 
-        <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`rounded-full px-4 py-1 text-xs font-semibold transition ${
-                selectedCategory === null
-                  ? "bg-orange-600 text-white"
-                  : "border border-slate-300 bg-white text-slate-900 hover:border-orange-600"
-              }`}
-            >
-              All
-            </button>
-            {["men", "women", "unisex"].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`rounded-full px-4 py-1 text-xs font-semibold transition capitalize ${
-                  selectedCategory === cat
-                    ? "bg-orange-600 text-white"
-                    : "border border-slate-300 bg-white text-slate-900 hover:border-orange-600"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {uniqueVolumes.map((vol) => (
-              <button
-                key={vol}
-                onClick={() => setSelectedVolume(vol as string)}
-                className={`rounded-full px-4 py-1 text-xs font-semibold transition ${
-                  selectedVolume === vol
-                    ? "bg-orange-600 text-white"
-                    : "border border-slate-300 bg-white text-slate-900 hover:border-orange-600"
-                }`}
-              >
-                {vol}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex gap-2">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "default" | "low-to-high" | "high-to-low")}
-              className="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-900 transition hover:border-orange-600"
-            >
-              <option value="default">Sort by</option>
-              <option value="low-to-high">Price: Low to High</option>
-              <option value="high-to-low">Price: High to Low</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="max-h-[800px] overflow-y-auto pr-2">
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {filteredProducts.map((p) => (
-            <article key={p.id} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-              <div className="overflow-hidden rounded-3xl">
-                <Image src={p.image} alt={p.title} width={720} height={480} className="h-56 w-full object-cover" />
-              </div>
-              <div className="mt-5 space-y-3">
-                <p className="text-base font-semibold text-slate-950">{p.title}</p>
-                <p className="text-sm text-slate-500">{p.subtitle}</p>
-                {p.volume && <p className="text-xs text-amber-700 font-medium">{p.volume}</p>}
-                <div className="flex items-center gap-2 text-lg font-semibold text-slate-950">
-                  <span>{p.price}</span>
+        <div className="thin-scrollbar flex flex-nowrap gap-4 overflow-x-auto pb-3 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          {previewProducts.map((p) => (
+            <Link key={p.id} href={`/product/${p.id}`} className="group block flex-none w-[48vw] sm:w-[240px] md:w-[265px] lg:w-[295px]">
+              <article className="h-full rounded-lg border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col overflow-hidden justify-between">
+                {/* Image (Flush with card top, left, right) */}
+                <div className="relative overflow-hidden w-full aspect-[4/5] bg-slate-50 shrink-0">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                <button className="mt-4 w-full rounded-full bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
-                  Add to Cart
-                </button>
-              </div>
-            </article>
-            ))}
-            </div>
-          </div>
+
+                {/* Content details and pricing (padded) */}
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-semibold text-slate-950 group-hover:text-orange-600 transition-colors line-clamp-1">
+                      {p.title}
+                    </h3>
+                    <p className="text-sm text-slate-500 line-clamp-1">{p.subtitle}</p>
+                    {p.volume && <p className="text-xs text-amber-700 font-medium">{p.volume}</p>}
+                  </div>
+
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+

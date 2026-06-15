@@ -8,7 +8,7 @@ import {
   bannerSlides,
   todayDeals,
   topSellingProducts,
-  articles,
+  products,
   customerReviews,
 } from "../data/content";
 import AllProducts from "./components/AllProducts";
@@ -20,7 +20,7 @@ export default function Home() {
         <HeroSection slides={bannerSlides} />
         <TodayDeals deals={todayDeals} />
         <TopSellingProducts products={topSellingProducts} />
-        <AllProducts products={[...topSellingProducts, ...todayDeals]} />
+        <AllProducts products={products} />
         {/* <ArticlesSection articles={articles} /> */}
         <CustomerReviews reviews={customerReviews} />
         <FooterSection />
